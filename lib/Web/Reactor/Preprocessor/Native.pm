@@ -103,7 +103,7 @@ sub load_file
     return undef;
     }
 
-  warn( "** LOAD HTML PAGE: filename is [$fn]" ) if $reo->is_debug();
+  warn( "** LOAD HTML PAGE: filename is [$fn]\n" ) if $reo->is_debug();
   my $fdata = file_load( $fn );
   $self->{ 'FILE_CACHE' }{ $lang }{ $pn } = $fdata;
 
