@@ -1,7 +1,7 @@
 /****************************************************************************
 ##
 ##  Web::Reactor application machinery
-##  2013-2014 (c) Vladi Belperchinov-Shabanski "Cade"
+##  2013-2015 (c) Vladi Belperchinov-Shabanski "Cade"
 ##  <cade@bis.bg> <cade@biscom.net> <cade@cpan.org>
 ##
 ##  LICENSE: GPLv2
@@ -231,24 +231,38 @@ function reactor_tab_activate( tab )
 
 function reactor_form_checkbox_set( el, value )
 {
-  var ch_id = el.dataset.checkboxInputId;
-  var cb = document.getElementById( ch_id );
-  cb.value = value;
-  el.checked = value ? true : false;
+   var ch_id  = el.dataset.checkboxInputId;
+   var cb     = document.getElementById( ch_id );
+   cb.value   = value;
+   el.checked = value ? true : false;
 
-  var onchange = cb.getAttribute( 'ONCHANGE' );
-  if( onchange )
-    {
-    if( is_msie_shit )
-      onchange();
-    else
-      eval( onchange );
-    }
+   var onchange = cb.getAttribute( 'ONCHANGE' );
+   if( onchange )
+     {
+     if( is_msie_shit )
+       onchange();
+     else
+       eval( onchange );
+     }
 }
 
 function reactor_form_checkbox_toggle( el )
 {
-  reactor_form_checkbox_set( el, el.checked ? 1 : 0 );
+   reactor_form_checkbox_set( el, el.checked ? 0 : 1 );
+}
+
+function reactor_form_checkbox_set_all( form_id, value )
+{
+  var arr = document.getElementById( form_id ).elements;
+  for( z = 0; z < arr.length; z++ )
+    {
+    var ch_id = arr[z].dataset.checkboxInputId;
+    if( ! ch_id ) continue;
+    if( value == -1 )
+      reactor_form_checkbox_toggle( arr[z] );
+    else  
+      reactor_form_checkbox_set( arr[z], value );
+    }
 }
 
 /***EOF*********************************************************************/
